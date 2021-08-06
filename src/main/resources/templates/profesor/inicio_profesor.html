@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  
+  <head th:replace="fragments/head :: head">
+  <body>
+    <header th:replace="fragments/header :: header" > </header>
+    <nav th:replace="fragments/nav_fragment :: nav_profesor"></nav>
+    
+
+    <div class="container">
+    <div id="registro">
+      	 <h2>Bienvenid@: <span th:text="${usuario.getNombres}+ ' ' +${usuario.getApellidos}"></span></h2>
+      	 <form method="post" th:action="@{actualizar_usuario}">
+      		 <input name="idusuario" type="hidden" th:value="${usuario.getIdusuario}">
+			 
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+			      <label>Nombres</label>
+			      <input id="nombres" disabled name="nombres" type="text" class="form-control" th:value="${usuario.getNombres}">
+			    </div>
+			    <div class="form-group col-md-6">
+			      <label>Apellidos</label>
+			      <input id="apellidos" disabled name="apellidos" type="text" class="form-control" th:value="${usuario.getApellidos}" >
+			    </div>
+			  </div>
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+			      <label>Email</label>
+			      <input id="email" disabled name="email" type="email" class="form-control" th:value="${usuario.getEmail}" >
+			    </div>
+			    <div class="form-group col-md-6">
+			      <label>Usuario</label>
+			      <input id="usuario" disabled name="usuario" type="text" class="form-control" th:value="${usuario.getUsuario}" >
+			    </div>
+			  </div>
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+			      <label>Contraseña</label>
+			      <input id="pass" disabled name="pass" type="password" placeholder="*****" class="form-control" >
+			    </div>
+			    	
+			  </div>
+			  
+			  <div class="text-center">
+				  <button type="submit" class="btn btn-success">Guardar</button>
+				  <button type="button" class="btn btn-primary" onclick="actualizar()">Actualizar</button>
+			  </div>
+			  
+			</form>
+      	 
+      	 
+       </div>
+    
+   
+       
+    </div>
+    
+    
+     <footer th:replace="fragments/footer:: footer" > </footer>
+     
+     <script th:inline="javascript">
+	     function actualizar(){
+	    	document.getElementById("nombres").disabled = false;
+	    	document.getElementById("apellidos").disabled = false;
+	    	document.getElementById("email").disabled = false;
+	    	document.getElementById("pass").disabled = false;
+	    		
+	    	}
+     
+     </script>
+  </body>
+</html>

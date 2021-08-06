@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  
+<head th:replace="fragments/head :: head">
+<body>
+
+<div id="pregunta" th:fragment="form_pregunta">
+            <form method="post" th:action="@{/profesor/guardar_pregunta}">
+            <input type="hidden" name="bancopreguntas" th:value="${bancopreguntas.getIdbancopreguntas}">
+            
+            <div class="form-row">
+                <div class="form-group col-md-6 px-4">
+                    <div class="row px-2">
+                        <label>Enunciado</label>
+                        <textarea class="form-control" id="enunciado" name="enunciado" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 px-4">
+                    <div class="row px-2">
+                        <label>Respuesta 1 (Escribir la respuesta correcta)</label>
+                        <textarea class="form-control" id="res1" name="res1" rows="1"></textarea>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="form-row">
+                
+                <div class="form-group col-md-6 px-4">
+                    <div class="row px-2">
+                        <label>Respuesta 2</label>
+                        <textarea class="form-control" id="res2" name="res2" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 px-4">
+                    <div class="row px-2">
+                        <label>Respuesta 3</label>
+                        <textarea class="form-control" id="res3" name="res3" rows="1"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6 px-4">
+                    <div class="row px-2">
+                        <label>Retroalimentación</label>
+                        <textarea class="form-control" id="retroalimentacion" name="retroalimentacion"
+                            rows="1"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">Agregar pregunta</button>
+            </div>
+        </form>
+          </div>
+        
+        
+        
+        
+        
+        
+         <!-- MODAL FORM PREGUNTA -->
+    <div th:fragment="modal_form_pregunta" class="modal fade" 
+    id="modal_pregunta" role="dialog"
+    th:attrappend="id=${pregunta.idpregunta}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Pregunta - Opción Múltiple</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" th:action="@{/profesor/guardar_pregunta}">
+                    <input type="hidden" name="bancopreguntas" th:value="${bancopreguntas.getIdbancopreguntas}">
+                    <input type="hidden" name="idpregunta" th:value="${pregunta.idpregunta}">
+                  
+                    <div class="form-row">
+                <div class="form-group col-md-6 px-4">
+                    <div class="row px-2">
+                        <label>Enunciado</label>
+                        <textarea th:text="${pregunta.enunciado}" class="form-control" id="enunciado" name="enunciado" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 px-4">
+                    <div class="row px-2">
+                        <label>Respuesta 1 (Escribir la respuesta correcta)</label>
+                        <textarea th:text="${pregunta.res1}" class="form-control" id="res1" name="res1" rows="1"></textarea>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="form-row">
+                
+                <div class="form-group col-md-6 px-4">
+                    <div class="row px-2">
+                        <label>Respuesta 2</label>
+                        <textarea th:text="${pregunta.res2}" class="form-control" id="res2" name="res2" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 px-4">
+                    <div class="row px-2">
+                        <label>Respuesta 3</label>
+                        <textarea th:text="${pregunta.res3}" class="form-control" id="res3" name="res3" rows="1"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6 px-4">
+                    <div class="row px-2">
+                        <label>Retroalimentación</label>
+                        <textarea th:text="${pregunta.retroalimentacion}" class="form-control" id="retroalimentacion" name="retroalimentacion"
+                            rows="1"></textarea>
+                    </div>
+                </div>
+            </div>
+           
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

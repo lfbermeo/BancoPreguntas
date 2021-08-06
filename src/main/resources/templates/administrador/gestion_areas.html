@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="fragments/head :: head">
+
+<body>
+  <header th:replace="fragments/header :: header"> </header>
+  <nav th:replace="fragments/nav_fragment :: nav_admin"></nav>
+
+
+  <div class="container">
+  
+  	<div class="row">
+  	
+  	  <div class="col col-md-6">
+  	  	<div class="border mt-3 px-3 py-3">
+    
+			      <h4 class="text-center">Gestion de areas</h4>
+			      <a class="btn btn-success text-right"
+			      data-toggle="modal" data-target="#modal_crear_area"
+			       style="color: white">Nuevo</a>
+			
+			      <div class="table-responsive">
+			        <table class="table my-3">
+			
+			          <tbody id="tabla_usuarios">
+			            <!-- LISTADO DE areas -->
+			            <tr th:if="${lsareas.size() >0}">
+			              <th scope="col">#</th>
+			              <th scope="col">Nombre</th>
+			              <th scope="col">Acciones</th>
+			            </tr>
+			            <tr th:each="area: ${lsareas}">
+			              <td th:text="${areaStat.index}+1"></td>
+			              <td th:text="${area.nombre}" />
+			              <td>
+			                <div class="row">
+			                  <div class="col col-md-4 text-center">
+			                  <a style="color: white" class="btn btn-info" data-toggle="modal" data-target="#modal_area"
+								th:attrappend="data-target=${area.idarea}"><i class="fas fa-pen"></i></a>
+										
+			                  </div>
+			                  <div class="col col-md-4 text-center">
+			                    <form method="post" th:action="@{/administrador/eliminar_area}">
+			                      <input type="hidden" name="idarea" th:value="${area.idarea}">
+			                      <button type="submit" class="btn btn-danger"><i class="fas fa-minus-circle"></i></button>
+			                    </form>
+			                  </div>
+			                  <!-- MODAL area FORM	-->
+								<div th:replace="administrador/forms_fragments/modal_form_info :: modal_form_area"> 
+				                </div>
+								
+			                </div>
+			              </td>
+			            </tr>
+			          </tbody>
+			        </table>
+			      </div>
+			    </div>
+  	  
+  	  </div>
+  	  <div class="col col-md-6">
+  	  	<div class="border mt-3 px-3 py-3">
+    
+			      <h4 class="text-center">Gestion de carreras</h4>
+			      <a class="btn btn-success text-right"
+			      data-toggle="modal" data-target="#modal_crear_carrera"
+			       style="color: white">Nuevo</a>
+			
+			      <div class="table-responsive">
+			        <table class="table my-3">
+			
+			          <tbody id="tabla_usuarios">
+			            <!-- LISTADO DE areas -->
+			            <tr th:if="${lscarreras.size() >0}">
+			              <th scope="col">#</th>
+			              <th scope="col">Carrera</th>
+			              <th scope="col">Area</th>
+			              <th scope="col">Acciones</th>
+			            </tr>
+			            <tr th:each="carrera: ${lscarreras}">
+			              <td th:text="${carreraStat.index}+1"></td>
+			              <td th:text="${carrera.nombre}" />
+			              <td th:text="${carrera.area.nombre}" />
+			              <td>
+			                <div class="row">
+			                  <div class="col col-md-4 text-center">
+			                  <a style="color: white" class="btn btn-info" data-toggle="modal" data-target="#modal_carrera"
+								th:attrappend="data-target=${carrera.idcarrera}"><i class="fas fa-pen"></i></a>
+										
+			                  </div>
+			                  <div class="col col-md-4 text-center">
+			                    <form method="post" th:action="@{/administrador/eliminar_carrera}">
+			                      <input type="hidden" name="idcarrera" th:value="${carrera.idcarrera}">
+			                      <button type="submit" class="btn btn-danger"><i class="fas fa-minus-circle"></i></button>
+			                    </form>
+			                  </div>
+			                  <!-- MODAL carrera FORM-->
+								<div th:replace="administrador/forms_fragments/modal_form_info :: modal_form_carrera"> 
+				                </div>
+									
+			                </div>
+			              </td>
+			            </tr>
+			          </tbody>
+			        </table>
+			      </div>
+			    </div>
+  	  
+  	  </div>
+  	
+  	
+  	</div>
+
+    
+
+
+
+
+
+  </div>
+  
+  <div class="modal fade" id="modal_crear_area" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Crear Nueva Área</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form method="post" th:action="@{guardar_area}">
+		      <div class="modal-body">  
+				  <div class="form-row">
+				    <div class="form-group col-md-12">
+				      <label>Nombre</label>
+				      <input name="nombre" type="text" class="form-control" placeholder="Ingrese el area">
+				    </div>
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Registrar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="modal_crear_carrera" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Crear Nueva Carrera</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form method="post" th:action="@{guardar_carrera}">
+		      <div class="modal-body">  
+				  <div class="form-row">
+				  <div class="form-group col-md-6">
+							<label class="col">Área</label>
+							<div class="input-group ">
+									<select  class="custom-select" name="area">
+									 	<option th:each="area: ${lsareas}" th:value="${area.idarea}" th:text="${area.nombre}"></option>
+									
+									</select>
+								
+							</div>
+						</div>
+				    <div class="form-group col-md-6">
+				      <label>Nombre</label>
+				      <input name="nombre" type="text" class="form-control" placeholder="Ingrese el area">
+				    </div>
+				    
+
+				    
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Registrar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+
+
+  <footer th:replace="fragments/footer:: footer"> </footer>
+</body>
+
+<script th:inline="javascript">
+
+function mantener_pass(){
+	/*var modal_pass = document.getElementById("modal_pass");
+	if(modal_pass.value==""){
+		modal_pass.value = "123";	
+	}*/
+}
+
+
+</script>
+
+</html>

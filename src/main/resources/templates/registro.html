@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  
+  <head th:replace="fragments/head :: head">
+  <body>
+    <header th:replace="fragments/header :: header" > </header>
+    
+
+    <div class="container">
+   		
+		       
+       <div id="registro">
+      	 
+      	 <h2>Registro</h2>
+      	 <form method="post" th:action="@{/guardar_usuario}">
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+			      <label>Nombres</label>
+			      <input name="nombres" type="text" class="form-control" placeholder="Ingrese sus nombres">
+			    </div>
+			    <div class="form-group col-md-6">
+			      <label>Apellidos</label>
+			      <input name="apellidos" type="text" class="form-control" placeholder="Ingrese sus apellidos">
+			    </div>
+			  </div>
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+			      <label>Email</label>
+			      <input name="email" type="email" class="form-control" placeholder="Ingrese su email">
+			    </div>
+			    <div class="form-group col-md-6">
+			      <label>Usuario</label>
+			      <input name="usuario" type="text" class="form-control" placeholder="Ingrese su usuario">
+			    </div>
+			  </div>
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+			      <label>Contraseña</label>
+			      <input name="pass" type="password" class="form-control" placeholder="Ingrese su contraseña">
+			    </div>
+			    <div class="form-group col-md-6">
+			      <label>Confirmar contraseña</label>
+			      <input type="password" class="form-control" placeholder="Confirme su contraseña">
+			    </div>
+			  </div>
+			  
+			  <div class="text-center">
+				  <button type="submit" class="btn btn-primary">Sign in</button>
+			  </div>
+			  
+			</form>
+      	 
+      	 
+       </div>
+	</div>
+      
+       <div class="row justify-content-center pt-4 text-center">
+		<div>
+			<div>
+				<a>¿Ya tienes una cuenta?</a>
+			</div>
+			<a href="/login">Inicia sesión</a>
+		</div>
+	</div>
+     <footer th:replace="fragments/footer:: footer" > </footer>
+  </body>
+</html>

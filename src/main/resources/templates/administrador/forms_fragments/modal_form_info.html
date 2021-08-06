@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="fragments/head :: head">
+
+<body>
+	<!-- MODAL FORM AREA -->
+	<div th:fragment="modal_form_area" class="modal fade" id="modal_area" role="dialog"
+		th:attrappend="id=${area.idarea}">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content py-3 px-3">
+				<div class="modal-header">
+					<h5 class="modal-title">Editar Area</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post" th:action="@{guardar_area}">
+					<input type="hidden" name="idarea" th:value="${area.idarea}">
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label>Nombre	</label>
+							<input th:value="${area.nombre}" name="nombre" type="text" class="form-control"
+								placeholder="Ingrese sus nombres">
+						</div>	
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						<button type="submit" class="btn btn-primary">Actualizar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- MODAL FORM CARRERA -->
+	<div th:fragment="modal_form_carrera" class="modal fade" id="modal_carrera" role="dialog"
+		th:attrappend="id=${carrera.idcarrera}">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content py-3 px-3">
+				<div class="modal-header">
+					<h5 class="modal-title">Editar Carrera</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post" th:action="@{guardar_carrera}">
+					<input type="hidden" name="idcarrera" th:value="${carrera.idcarrera}">
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label class="col">Área</label>
+							<div class="input-group ">
+									<select  class="custom-select" name="area">
+									
+											<option selected th:each="area: ${lsareas}" th:if="${area.nombre == carrera.area.getNombre}"  th:value="${area.idarea}" th:text="${area.nombre}"></option>
+											<option th:each="area: ${lsareas}" th:th:unless="${area.nombre == carrera.area.getNombre}"  th:value="${area.idarea}" th:text="${area.nombre}"></option>
+										
+							
+									 	
+									</select>
+							</div>
+						</div>
+						<div class="form-group col-md-6">
+							<label>Nombre	</label>
+							<input th:value="${carrera.nombre}" name="nombre" type="text" class="form-control"
+								placeholder="Ingrese sus nombres">
+						</div>	
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						<button type="submit" class="btn btn-primary">Actualizar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+
+</html>

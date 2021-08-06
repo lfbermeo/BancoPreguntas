@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="fragments/head :: head">
+
+<body>
+	<!-- MODAL FORM USUARIO -->
+	<div th:fragment="modal_form_usuario" class="modal fade" id="modal_usuario" role="dialog"
+		th:attrappend="id=${us.idusuario}">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content py-3 px-3">
+				<div class="modal-header">
+					<h5 class="modal-title">Editar Usuario</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post" th:action="@{actualizar_usuario}">
+					<input type="hidden" name="idusuario" th:value="${us.idusuario}">
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label>Nombres</label>
+							<input th:value="${us.nombres}" name="nombres" type="text" class="form-control"
+								placeholder="Ingrese sus nombres">
+						</div>
+						<div class="form-group col-md-6">
+							<label>Apellidos</label>
+							<input th:value="${us.apellidos}" name="apellidos" type="text" class="form-control"
+								placeholder="Ingrese sus apellidos">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label>Email</label>
+							<input th:value="${us.email}" name="email" type="email" class="form-control"
+								placeholder="Ingrese su email">
+						</div>
+						<div class="form-group col-md-6">
+							<label>Usuario</label>
+							<input th:value="${us.usuario}" name="usuario" type="text" class="form-control"
+								placeholder="Ingrese su usuario">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label>Contraseña</label>
+							<input  name="pass" type="password"  class="form-control"
+								placeholder="*******">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label class="col">Rol</label>
+							<div class="input-group ">
+								<div th:switch="${us.rol}">
+									<select th:case="ROLE_ADMINISTRADOR" class="custom-select" name="rol">
+										<option selected value="ROLE_ADMINISTRADOR">Administrador</option>
+										<option value="ROLE_PROFESOR">Profesor</option>
+									</select>
+									<select th:case="ROLE_PROFESOR" class="custom-select" name="rol">
+										<option value="ROLE_ADMINISTRADOR">Administrador</option>
+										<option selected value="ROLE_PROFESOR">Profesor</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						<button type="submit" class="btn btn-primary">Actualizar</button>
+					</div>
+
+				</form>
+
+
+
+			</div>
+		</div>
+	</div>
+</body>
+
+
+
+</html>

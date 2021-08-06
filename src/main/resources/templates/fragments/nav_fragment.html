@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/head :: head">
+
+
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="nav_profesor">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="nav nav-pills">
+		   
+		      	<li class="nav-item active">
+		        	<a class="nav-link" href="/profesor/inicio_profesor">Mi perfil</a>
+		      	</li>
+		      	<li class="nav-item active dropdown">
+				    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Bancos de preguntas</a>
+				    <div class="dropdown-menu">
+				      <a class="dropdown-item" href="/profesor/bancopreguntas">Crear nuevo</a>
+				      <a class="dropdown-item" href="/profesor/visualizar">Mis bancos de preguntas</a>
+				    </div>
+				  </li>
+
+				<li class="nav-item active">
+					<a class="nav-link" href="/profesor/reportes">Reportes</a>
+				</li>
+				
+				<li class="nav-item ">
+		        <strong><a class="nav-link disabled" th:text="'Profesor: '+${usuario.getNombres} + ' ' 
+			+ ${usuario.getApellidos} "></a></strong>
+		      </li>
+		  
+		
+		      <a href="/logout" class="btn btn-outline-danger my-2 my-sm-0" >Cerrar sesión</a>
+	
+		    </ul>
+		
+		  </div>
+		</nav>
+		
+		
+		
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="nav_admin">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="nav nav-pills">
+		   
+		      	<li class="nav-item active">
+		        	<a class="nav-link" href="/administrador/inicio_admin">Mi perfil</a>
+		      	</li>
+		      	<li class="nav-item active dropdown">
+				    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestionar Información</a>
+				    <div class="dropdown-menu">
+				      <a class="dropdown-item" href="gestion_usuarios">Gestion de Usuario</a>
+				      <a class="dropdown-item" href="/administrador/gestion_areas">Gestion de Areas</a>
+				 
+				    </div>
+				  </li>
+				
+				<li class="nav-item ">
+		        <strong><a class="nav-link disabled" th:text="'Administrador: '+${#session.getAttribute('usuario').getNombres} + ' ' 
+			+ ${usuario.getApellidos} "></a></strong>
+		      </li>
+		  
+		
+		      <a href="/logout" class="btn btn-outline-danger my-2 my-sm-0" >Cerrar sesión</a>
+	
+		    </ul>
+		
+		  </div>
+		</nav>
+		
+		
+		
+		</body>
+</html>

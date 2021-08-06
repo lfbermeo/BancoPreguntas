@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  
+  <head th:replace="fragments/head :: head">
+  <body>
+    <header th:replace="fragments/header :: header" > </header>
+    
+
+    <div class="container">
+   		<div class="alert alert-success alert-dismissible fade show mt-2"
+				role="alert" th:if="${success != null}">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<span th:text="${success}"></span>
+			</div>
+		<div class="alert alert-danger alert-dismissible fade show mt-2"
+				role="alert" th:if="${error != null}">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<span th:text="${error}"></span>
+			</div>
+		<div class="alert alert-success alert-dismissible fade show mt-2"
+			role="alert" th:if="${sms != null}">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<span th:text="${sms}"></span>
+		</div>
+		
+		<div id="login">
+	        <h2>Ingresar al sistema</h2>
+	        <div id="datos" th:if = "${datos_incorrectos}"> 
+	        	<p>Los datos que ha ingresado son incorrectos</p>
+	        </div>
+	         <form th:action="@{/login}" method="post">
+	           <label for="username">Usuario</label>
+	           <input required type="text" id="email_i" name="username" placeholder="Ingrese su usuario" class="form-control my-3">
+	        
+	           <!-- PASSWORD INPUT -->
+	           <label for="password">Password </label>
+	           <input type="password" id="pass_i" name="password" placeholder="Ingrese su contrase&ntilde;a" class="form-control my-3">
+	           <input required type="submit" id="btnIngresar" value="Ingresar" class="btn btn-info" style="width: 100%;">
+	         <br/>
+	           <hr>
+	         </form>
+       </div>
+	</div>
+      
+       <div class="row justify-content-center pt-4 text-center">
+		<div>
+			<div>
+				<a>¿No se encuentra registrado?</a>
+			</div>
+			<a href="/registro">Regístrate</a>
+		</div>
+	</div>
+     <footer th:replace="fragments/footer:: footer" > </footer>
+  </body>
+</html>

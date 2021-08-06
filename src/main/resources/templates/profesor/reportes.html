@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  
+  <head th:replace="fragments/head :: head">
+  <body>
+    <header th:replace="fragments/header :: header" > </header>
+    <nav th:replace="fragments/nav_fragment :: nav_profesor"></nav>
+    
+
+    <div class="container">
+    
+    <div class="border mt-3 px-3 py-3">
+
+      <h4 class="text-center">Reportes de los bancos de pregunta</h4>
+ 
+
+      <div class="table-responsive">
+        <table class="table my-3">
+							
+			<tbody>
+				  	<!-- LISTADO DEL BANCO DE PREGUNTAS -->
+					<tr th:if="${lsbancos.size() >0}">
+						<th scope="col">#</th>
+						<th scope="col">Código</th>
+						<th scope="col">Tema</th>
+						<th scope="col">Asignatura</th>
+						<th scope="col">Carrera</th>
+						<th scope="col"># Respuestas</th>
+						<th scope="col">Acciones</th>
+					</tr>
+					<tr th:each="banco: ${lsbancos}">
+						<td th:text="${bancoStat.index}+1"></td>
+					    <td th:text="${banco.codigo}" />
+					    <td th:text="${banco.tema}" />
+					    <td th:text="${banco.asignatura}" />
+					    <td th:text="${banco.carrera.getNombre}" />
+					    <td class="text-center" th:text="${banco.respuestas.size()}" />
+					    <td>
+					    	<div class="row">
+						    	<div class="col col-md-4 text-center">
+						    		<form method="post" th:action="@{/profesor/ver_reporte}" >
+										<input type="hidden" name="idbancopreguntas" th:value="${banco.idbancopreguntas}">
+										<button th:if="${banco.respuestas.size() > 0}" type="submit" class="btn btn-info"><i class="fas fa-pen"></i></button>
+										<button th:unless="${banco.respuestas.size() > 0}" disabled type="submit" class="btn btn-info"><i class="fas fa-pen"></i></button>
+									</form>
+						    	</div>
+						    	<div class="col col-md-4 text-center">			    	
+							    	<form method="post" th:action="@{/profesor/eliminar_bancopreguntas}"> 
+										<input type="hidden" name="idbancopreguntas" th:value="${banco.idbancopreguntas}">
+										<button type="submit" class="btn btn-danger"  ><i class="fas fa-minus-circle"></i></button>
+									</form>
+						    	
+						    	</div>
+					    		
+								
+					    	</div>
+						 	
+						</td> 
+					</tr>
+
+					
+					
+			</tbody>
+
+		</table>
+      </div>
+
+    </div>
+    
+   
+       
+    </div>
+    
+    
+     <footer th:replace="fragments/footer:: footer" > </footer>
+     
+  </body>
+</html>

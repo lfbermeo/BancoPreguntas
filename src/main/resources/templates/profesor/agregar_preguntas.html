@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  
+  <head th:replace="fragments/head :: head">
+  <body>
+    <header th:replace="fragments/header :: header" > </header>
+    <nav th:replace="fragments/nav_fragment :: nav_profesor"></nav>
+    
+
+    <div class="container">
+    
+    	<div class="row mt-4">
+    		<div class="col col-md-3 py-3 border">
+    			<h5 class="text-center"><strong>Banco de Preguntas</strong></h5>
+    			<div>
+                		<p><strong>Código: </strong><span th:text="${bancopreguntas.getCodigo}"></span></p>
+                		<p><strong>Tema: </strong><span th:text="${bancopreguntas.getTema}"></span></p>
+                		<p><strong>Asignatura: </strong><span th:text="${bancopreguntas.getAsignatura}"></span></p>
+                		<p><strong>Carrera: </strong><span th:text="${bancopreguntas.carrera.getNombre}"></span></p>
+               	</div>
+               	
+               	<div class="text-center" >
+               		<a class="btn btn-primary" style="color: white" data-toggle="modal" data-target="#modal_bancopreguntas">Editar</a>
+           		</div>
+           		
+    		</div>
+    		
+    		<div class="col col-md-9 py-3 border">
+    			<h5 class="text-center"><strong>Agregar Preguntas</strong></h5>
+    			<div th:replace="profesor/form_fragments/form_pregunta :: form_pregunta"></div>
+    		</div>
+   		</div>
+   		
+   		<div class="row mt-4">
+   			<div class="col col-md-12 py-3 border">
+   			
+   				<h5 class="text-center">Listado de preguntas</h5>
+                <div class="table-responsive">
+                	
+					<table class="table my-3">
+					
+						<tbody id="tabla_preguntas">
+						
+							  	<!-- LISTADO DE LAS PREGUNTAS DE OPCION MULTIPLE -->
+							  	
+								<tr th:if="${bancopreguntas.preguntas.size() >0}">
+									<td class="text-center" colspan="4"><strong>Preguntas de Opción Múltiple</strong></td>
+									<td>
+										<a style="color: white" class="btn btn-primary" data-toggle="collapse" href=".tabla_info_preguntas" aria-controls="tabla_info_opcionmultiple"><i class="fas fa-eye"> Mostrar / Ocultar</i></a>
+									</td>
+								</tr>
+								
+								<tr th:if="${bancopreguntas.preguntas.size() >0}"  class="collapse tabla_info_preguntas" >
+									<th scope="col">#</th>
+									<th scope="col">Enunciado</th>
+									<th scope="col">Respuesta correcta</th>
+									<th scope="col">Retroalimentacion</th>
+									<th scope="col">Acciones</th>
+								</tr>
+								<tr th:each="pregunta: ${bancopreguntas.preguntas}" class="collapse tabla_info_preguntas">
+									<td th:text="${preguntaStat.index}+1"></td>
+								    <td th:text="${pregunta.enunciado}" />
+								    <td th:text="${pregunta.rescorrecta}" />
+								    <td th:text="${pregunta.retroalimentacion}" />
+								    <td>
+									 	<form method="post" th:action="@{/profesor/eliminar_pregunta}">
+									 		 <input type="hidden" name="idpregunta" th:value="${pregunta.idpregunta}">
+											<a style="color: white" class="btn btn-info" data-toggle="modal" data-target="#modal_pregunta"
+											th:attrappend="data-target=${pregunta.idpregunta}"><i class="fas fa-pen"></i></a>
+											<button type="submit" class="btn btn-danger"  ><i class="fas fa-minus-circle"></i></button>
+										</form>
+										
+										<!-- MODAL PREGUNTAS -->
+										<div th:replace="profesor/form_fragments/form_pregunta :: modal_form_pregunta"> 
+						                </div> 
+									</td> 
+								</tr>				
+						</tbody>
+
+					</table>
+				</div>
+   			
+   			
+			</div>
+   		
+   		
+   		</div>
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    	
+    
+   
+       
+    </div>
+    
+    
+    <!-- MODAL BANCO PREGUNTAS -->
+    <div class="modal fade" id="modal_bancopreguntas" tabindex="-1" role="dialog" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Editar información del Banco de Preguntas</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+				      
+				      <form method="post" th:action="@{/profesor/guardar_bancopreguntas}">
+				      
+				      <div class="modal-body">
+                           <input type="hidden"  name="usuario" th:value="${#session.getAttribute('usuario').getIdusuario}">
+                           <input type="hidden" name="idbancopreguntas" th:value="${bancopreguntas.getIdbancopreguntas}">
+                            <input type="hidden"  name="codigo" th:value="${bancopreguntas.getCodigo}">
+
+
+	<div class="form-row">
+                               <div class="form-group col-md-6 px-4">
+                                   <div class="row px-2">
+                                    <label class="col">Área</label>
+								<div class="input-group ">
+									<select  class="custom-select" name="area" id="comboboxArea">
+									 	<option selected th:if="${area.idarea == bancopreguntas.carrera.getArea.getIdarea}" th:each="area: ${lsareas}" th:value="${area.idarea}" th:text="${area.nombre}"></option>
+										<option th:unless="${area.idarea == bancopreguntas.carrera.getArea.getIdarea}" th:each="area: ${lsareas}" th:value="${area.idarea}" th:text="${area.nombre}"></option>
+									
+									
+									</select>
+								</div>
+					                                   </div>
+                               </div>
+                               <div class="form-group col-md-6 px-4">
+                                   <div class="row px-2">
+                                        <label class="col">Carrera</label>
+								<div class="input-group ">
+									<select  class="custom-select" name="carrera" id="comboboxCarrera">
+									 
+									<option th:if="${carrera.area.getIdarea == bancopreguntas.carrera.getArea.getIdarea && carrera.idcarrera == bancopreguntas.carrera.getIdcarrera }" 
+									th:each="carrera: ${lscarreras}" th:value="${carrera.idcarrera}" th:text="${carrera.nombre}" selected></option>
+									
+									<option th:if="${carrera.area.getIdarea == bancopreguntas.carrera.getArea.getIdarea && carrera.idcarrera != bancopreguntas.carrera.getIdcarrera }" 
+									th:each="carrera: ${lscarreras}" th:value="${carrera.idcarrera}" th:text="${carrera.nombre}"></option>
+									
+									
+									
+
+									</select>
+								</div>
+                                   </div>
+                                   
+                               </div>
+                           </div>
+                           <div class="form-row">
+                               <div class="form-group col-md-6 px-4">
+                                   <div class="row px-2">
+                                       <label class="col-md-12">Tema</label>
+                                       <input type="text" class="form-control col-md-12"  name="tema"
+                                       th:value="${bancopreguntas.getTema}"
+                                            required>
+                                   </div>
+                               </div>
+                               <div class="form-group col-md-6 px-4">
+                                   <div class="row px-2">
+                                       <label class="col">Asignatura</label>
+                                       <input type="text" class="form-control col-md-12" 
+                                           name="asignatura" th:value="${bancopreguntas.getAsignatura}" required>
+                                   </div>
+                               </div>
+                           </div>
+                           
+	                                    
+	                                   
+	                                      
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				        <button type="submit" class="btn btn-primary">Actualizar</button>
+				      </div>
+				        </form>
+				    </div>
+				  </div>
+				</div>
+    
+    
+     <footer th:replace="fragments/footer:: footer" > </footer>
+     
+     <script type="text/javascript">
+     
+     $(document).ready(function(){
+
+    		$('#comboboxArea').on('change', function(){
+    			var carreraId = $(this).val();
+    			$.ajax({
+    				type: 'GET',
+    				url: '/profesor/loadCarrerasByArea/' + carreraId,
+    				success: function(result) {
+    					var result = JSON.parse(result);
+    					var s = '';
+    					var option='<option value="0">---</option>';
+    					for(var i = 0; i < result.length; i++) {
+    						s += '<option value="' + result[i].idcarrera + '">' + result[i].nombre + '</option>';
+    					}
+    					$('#comboboxCarrera').html(s);
+    				}
+    			});
+    		});
+    	});
+     </script>
+  </body>
+</html>

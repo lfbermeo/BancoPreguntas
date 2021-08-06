@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  
+  <head th:replace="fragments/head :: head">
+  <body>
+    <header th:replace="fragments/header :: header" > </header>
+    <nav th:replace="fragments/nav_fragment :: nav_profesor"></nav>
+    
+
+    <div class="container mt-2">
+    
+    
+	   	<h5 class="text-center"><strong>Banco de Preguntas</strong></h5>
+			<div>
+	           		<p><strong>Código: </strong><span th:text="${bancopreguntas.getCodigo}"></span></p>
+	           		<p><strong>Tema: </strong><span th:text="${bancopreguntas.getTema}"></span></p>
+	           		<p><strong>Asignatura: </strong><span th:text="${bancopreguntas.getAsignatura}"></span></p>
+	           		<p><strong>Carrera: </strong><span th:text="${bancopreguntas.carrera.getNombre}"></span></p>
+	          	</div>
+    	<h5 class="text-center"><strong>Respuestas de los jugadores</strong></h5>	
+    
+    
+    
+    <div class="table-responsive">
+        <table class="table my-3">
+					
+					
+						
+			<tbody>
+				  	<!-- LISTADO DEL BANCO DE PREGUNTAS -->
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Nombre Jugador</th>
+						<th scope="col">Aciertos</th>
+						<th scope="col">Incorrectos</th>
+						<th scope="col">Puntaje</th>
+						<th scope="col">Acciones</th>
+					</tr>
+					<tr th:each="respuesta: ${bancopreguntas.respuestas}">
+						<td th:text="${respuestaStat.index}+1"></td>
+					    <td th:text="${respuesta.nombreJugador}" />
+					    <td th:text="${respuesta.rescorrectas}" />
+					    <td th:text="${respuesta.resincorrectas}" />
+					    <td th:text="${respuesta.puntaje}" />
+					   
+				
+					    <td>
+					    	<div class="row">
+	
+						    	<div class="col col-md-4 text-center">			    	
+							    	<form method="post" th:action="@{/profesor/eliminar_respuestas}"> 
+										<input type="hidden" name="idrespuestas" th:value="${respuesta.idrespuestas}">
+										<button type="submit" class="btn btn-danger"  ><i class="fas fa-minus-circle"></i></button>
+									</form>
+						    	
+						    	</div>
+					    		
+								
+					    	</div>
+						 	
+						</td> 
+					</tr>
+
+					
+					
+			</tbody>
+
+		</table>
+      </div>
+    
+   
+       
+    </div>
+    
+    
+     <footer th:replace="fragments/footer:: footer" > </footer>
+     
+  </body>
+</html>

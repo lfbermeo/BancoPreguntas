@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="fragments/head :: head">
+
+<body>
+  <header th:replace="fragments/header :: header"> </header>
+  <nav th:replace="fragments/nav_fragment :: nav_admin"></nav>
+
+
+  <div class="container">
+
+    <div class="border mt-3 px-3 py-3">
+
+      <h4 class="text-center">Gestion de usuarios</h4>
+      <a class="btn btn-success text-right"
+			      data-toggle="modal" data-target="#modal_crear_usuario"
+			       style="color: white">Nuevo</a>
+
+      <div class="table-responsive">
+        <table class="table my-3">
+
+          <tbody id="tabla_usuarios">
+            <!-- LISTADO DE Usuarios -->
+            <tr th:if="${lsusuarios.size() >0}">
+              <th scope="col">#</th>
+              <th scope="col">Nombres</th>
+              <th scope="col">Apellidos</th>
+              <th scope="col">Email</th>
+              <th scope="col">Usuario</th>
+              <th scope="col">Acciones</th>
+            </tr>
+            <tr th:each="us: ${lsusuarios}">
+              <td th:text="${usStat.index}+1"></td>
+              <td th:text="${us.nombres}" />
+              <td th:text="${us.apellidos}" />
+              <td th:text="${us.email}" />
+              <td th:text="${us.usuario}" />
+              <td>
+                <div class="row">
+                  <div class="col col-md-4 text-center">
+                  <a style="color: white" class="btn btn-info" data-toggle="modal" data-target="#modal_usuario"
+					th:attrappend="data-target=${us.idusuario}"><i class="fas fa-pen"></i></a>
+							
+                  </div>
+                  <div th:if="${us.idusuario != usuario.getIdusuario}" class="col col-md-4 text-center">
+                    <form method="post" th:action="@{/administrador/eliminar_usuario}">
+                      <input type="hidden" name="idusuario" th:value="${us.idusuario}">
+                      <button type="submit" class="btn btn-danger"><i class="fas fa-minus-circle"></i></button>
+                    </form>
+                  </div>
+                  <!-- MODAL USUARIO FORM-->
+					<div th:replace="administrador/forms_fragments/modal_form_usuario :: modal_form_usuario"> 
+	                </div>
+
+
+                </div>
+
+              </td>
+            </tr>
+
+
+
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>
+
+
+
+
+
+  </div>
+  
+  <div class="modal fade" id="modal_crear_usuario" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content py-3 px-3">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Crear Nuevo Usuario</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form method="post" th:action="@{/administrador/crear_usuario}">    
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+			      <label>Nombres</label>
+			      <input name="nombres" type="text" class="form-control" placeholder="Ingrese sus nombres">
+			    </div>
+			    <div class="form-group col-md-6">
+			      <label>Apellidos</label>
+			      <input name="apellidos" type="text" class="form-control" placeholder="Ingrese sus apellidos">
+			    </div>
+			  </div>
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+			      <label>Email</label>
+			      <input name="email" type="email" class="form-control" placeholder="Ingrese su email">
+			    </div>
+			    <div class="form-group col-md-6">
+			      <label>Usuario</label>
+			      <input name="usuario" type="text" class="form-control" placeholder="Ingrese su usuario">
+			    </div>
+			  </div>
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+			      <label>Contraseña</label>
+			      <input name="pass" type="password" class="form-control" placeholder="Ingrese su contraseña">
+			    </div>
+			    <div class="form-group col-md-6">
+			     <label class="col">Rol</label>
+					<div class="input-group ">
+						<select class="custom-select"
+							 name="rol">
+							<option selected value="ROLE_ADMINISTRADOR">Administrador</option>
+							<option value="ROLE_PROFESOR">Profesor</option>
+						</select>
+					</div>
+			    </div>
+			  </div>
+			  
+			  
+			
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Registrar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+  
+  
+  
+  
+
+
+  <footer th:replace="fragments/footer:: footer"> </footer>
+</body>
+
+<script th:inline="javascript">
+
+function mantener_pass(){
+	/*var modal_pass = document.getElementById("modal_pass");
+	if(modal_pass.value==""){
+		modal_pass.value = "123";	
+	}*/
+}
+
+
+</script>
+
+</html>

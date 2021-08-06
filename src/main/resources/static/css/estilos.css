@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  padding: 0;
+ /* background: url(../img/fondo2.jpg) no-repeat center top; */ 
+  background-size: cover;
+  font-family: sans-serif;
+  height: auto;
+}
+
+.nav_log{
+  padding: 0.2% 0.2%;
+  background-color: #003F72;
+  width: 100%;
+}
+#logo{
+	float:left;
+	width: 35%;
+}
+#imgEscudo{
+	width: auto;
+}
+#titulo{
+  float:right;
+  width: 50%;
+  font-size: 40vm;
+  text-align:right;
+  padding: 10px 10px;
+  color: white; 
+}
+
+#login{
+  margin-top: 5%;
+  padding: 40px 30px 20px 30px;
+  background-color: white;
+  width: 40%;
+  margin-left: 30%;
+  box-shadow: rgba(200, 200, 200, 1) 0 4px 5px;
+  border-radius: 5%;
+}
+#login h2{
+  text-align: center;
+  color: #003F72;
+}
+#login label{
+  color: #003F72;
+  font-size: 18px;
+}
+
+
+#registro{
+	margin-top: 3%;
+  padding: 40px 30px 20px 30px;
+  background-color: white;
+  width: 80%;
+  margin-left: 10%;
+  box-shadow: rgba(200, 200, 200, 1) 0 4px 5px;
+  border-radius: 5%;
+}
+#registro h2{
+  text-align: center;
+  color: #003F72;
+}
+#registro label{
+  color: #003F72;
+  font-size: 18px;
+}
+
+
+footer{
+	color:white;
+	background-color: #003F72;
+}
+
+
+
+	
+
+
+
+
+
+
+
+@media screen and (max-width: 800px) {
+  #login{
+  	margin-top: 15%;
+  	width: 80%;
+  	margin-left: 10%;
+  }
+  
+
+}

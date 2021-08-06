@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="fragments/head :: head">
+<body>
+	<header th:replace="fragments/header :: header"> </header>
+	<nav th:replace="fragments/nav_fragment :: nav_profesor"></nav>
+
+
+	<div class="container">
+
+		<div id="registro">
+			<h2>Crear Nuevo Banco de Preguntas</h2>
+			<form method="post" th:action="@{guardar_bancopreguntas}">
+				<input name="usuario" type="hidden" th:value="${usuario.idusuario}">
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label class="col">Área</label>
+						<div class="input-group ">
+							<select class="form-control" id="comboboxArea">
+								<option value="0">--</option>
+								<option th:each="item : ${areas}" th:value="${item.idarea}"
+									th:text="${item.nombre}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label class="col">Carrera</label>
+						<div class="input-group ">
+							<select class="form-control" id="comboboxCarrera" name="carrera"></select>
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label>Asignatura</label> <input name="asignatura" type="text"
+							class="form-control"
+							placeholder="Ingrese la asignatura del cuestionario">
+					</div>
+					<div class="form-group col-md-6">
+						<label>Tema</label> <input name="tema" type="text"
+							class="form-control"
+							placeholder="Ingrese el tema del cuestionario">
+					</div>
+				</div>
+
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary">Crear Banco
+						de Preguntas</button>
+				</div>
+
+			</form>
+
+
+		</div>
+
+	</div>
+
+
+	<footer th:replace="fragments/footer:: footer"> </footer>
+
+	<script type="text/javascript">
+     
+     $(document).ready(function(){
+
+    		$('#comboboxArea').on('change', function(){
+    			var carreraId = $(this).val();
+    			$.ajax({
+    				type: 'GET',
+    				url: '/profesor/loadCarrerasByArea/' + carreraId,
+    				success: function(result) {
+    					var result = JSON.parse(result);
+    					var s = '';
+    					var option='<option value="0">---</option>';
+    					for(var i = 0; i < result.length; i++) {
+    						s += '<option value="' + result[i].idcarrera + '">' + result[i].nombre + '</option>';
+    					}
+    					$('#comboboxCarrera').html(s);
+    				}
+    			});
+    		});
+    	});
+     </script>
+</body>
+</html>
